@@ -28,7 +28,9 @@ allows you to implement such a scheme really easily.
 
 Your exact situation may differ, but in this example, a token is read
 from an ``apikey`` query parameter, the proper username is loaded from that
-value and then a User object is created::
+value and then a User object is created:
+
+.. code-block:: php
 
     // src/AppBundle/Security/ApiKeyAuthenticator.php
     namespace AppBundle\Security;
@@ -163,7 +165,9 @@ the user. This work is done in a ``getUsernameForApiKey()`` method, which
 is created entirely custom for this use-case (i.e. this isn't a method that's
 used by Symfony's core user provider system).
 
-The ``$userProvider`` might look something like this::
+The ``$userProvider`` might look something like this:
+
+.. code-block:: php
 
     // src/AppBundle/Security/ApiKeyUserProvider.php
     namespace AppBundle\Security;
@@ -521,7 +525,9 @@ configuration or set it to ``false``:
 Even though the token is being stored in the session, the credentials - in this
 case the API key (i.e. ``$token->getCredentials()``) - are not stored in the session
 for security reasons. To take advantage of the session, update ``ApiKeyAuthenticator``
-to see if the stored token has a valid User object that can be used::
+to see if the stored token has a valid User object that can be used:
+
+.. code-block:: php
 
     // src/AppBundle/Security/ApiKeyAuthenticator.php
 
@@ -585,7 +591,9 @@ The second step is the important one: Symfony calls ``refreshUser()`` and passes
 you the user object that was serialized in the session. If your users are
 stored in the database, then you may want to re-query for a fresh version
 of the user to make sure it's not out-of-date. But regardless of your requirements,
-``refreshUser()`` should now return the User object::
+``refreshUser()`` should now return the User object:
+
+.. code-block:: php
 
     // src/AppBundle/Security/ApiKeyUserProvider.php
 
@@ -625,7 +633,9 @@ really need to look for authentication information once the user has reached
 a certain URL (e.g. the redirect URL in OAuth).
 
 Fortunately, handling this situation is easy: just check to see what the
-current URL is before creating the token in ``createToken()``::
+current URL is before creating the token in ``createToken()``:
+
+.. code-block:: php
 
     // src/AppBundle/Security/ApiKeyAuthenticator.php
 
